@@ -31,7 +31,7 @@ export default async function Dashboard() {
           <a href="#">▥ <span>Results</span></a>
           <a href="#">◌ <span>Messages</span><b>3</b></a>
           <a href="#">♧ <span>Notifications</span><b>5</b></a>
-          <a href="#">♙ <span>Profile</span></a>
+          <a href="/profile">♙ <span>Profile</span></a>
           <a href="#">⚙ <span>Settings</span></a>
         </nav>
         <div className="sidebar-note">Better<br/>Students<br/><em>Brighter Futures</em></div>
@@ -41,7 +41,7 @@ export default async function Dashboard() {
         <header className="topbar">
           <div className="search">⌕ <input placeholder="Search courses, assignments, or anything..." /></div>
           <div className="bell">♧ <i>5</i></div>
-          <div className="user"><div className="avatar">{name.slice(0,2).toUpperCase()}</div><div><strong>{name}</strong><small>{role}</small></div></div>
+          <a href="/profile" className="user"><div className="avatar">{name.slice(0,2).toUpperCase()}</div><div><strong>{name}</strong><small>{role}</small></div></a>
         </header>
 
         <div className="content">

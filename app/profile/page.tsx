@@ -1,0 +1,52 @@
+import { createClient } from "@/lib/supabase/server";
+import { redirect } from "next/navigation";
+
+export default async function ProfilePage() {
+  const supabase = await createClient();
+
+  const { data: claimsData } = await supabase.auth.getClaims();
+
+  if (!claimsData?.claims) {
+    redirect("/login");
+  }
+
+  const userId = String(claimsData.claims.sub);
+
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("full_name, role, student_number, programme, avatar_url")
+    .eq("id", userId)
+    .maybeSingle();
+
+  const name = profile?.full_name || "Student";
+  const role = profile?.role || "student";
+
+  return (
+    <main style={{ padding: "40px", maxWidth: "700px", margin: "0 auto" }}>
+      <h1>My Profile</h1>
+
+      <p style={{ color: "#64748b" }}>
+        Manage your student information.
+      </p>
+
+      <section
+        style={{
+          marginTop: "30px",
+          padding: "25px",
+          borderRadius: "16px",
+          background: "#ffffff",
+          border: "1px solid #e2e8f0",
+        }}
+      >
+        <div style={{ fontSize: "42px", fontWeight: "700" }}>
+          {name.slice(0, 2).toUpperCase()}
+        </div>
+
+        <h2>{name}</h2>
+        <p>Role: {role}</p>
+        <p>Student Number: {profile?.student_number || "Not set"}</p>
+        <p>Programme: {profile?.programme || "Not set"}</p>
+      </section>
+    </main>
+  );
+}

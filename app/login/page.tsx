@@ -1,6 +1,6 @@
 import { login, signup } from "./actions";
 
-export default function LoginPage() {
+export default async function LoginPage({ searchParams }: { searchParams: Promise<{ error?: string; message?: string }> }) { const params = await searchParams;
   return (
     <main className="auth-page">
       <section className="auth-brand">
@@ -25,7 +25,7 @@ export default function LoginPage() {
           <input id="password" name="password" type="password" placeholder="••••••••" required />
 
           <button className="primary" formAction={login}>Sign in</button>
-          <button className="secondary" formAction={signup}>Create student account</button>
+          <a href="/signup" className="secondary">Create student account</a>
 
           <p className="tiny">By continuing, you agree to the U-dite terms and privacy policy.</p>
         </form>
